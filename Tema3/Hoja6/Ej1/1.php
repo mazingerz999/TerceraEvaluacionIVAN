@@ -38,31 +38,42 @@
     
     </p>
      <p><input type='submit' value='Enviar' id='enviar' name='enviar'> </p>
-    
+     
     </form>
     <hr>
     <br>
 
+        <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
     <?php if (isset($_POST["enviar"])) : ?> 
     <table border="2">
     <thead>Coche</thead>
+    <input type="hidden" name="marca2" id="" value="<?=$_POST['marca']?>">
     <?php foreach ($arraycoches[$_POST['marca']] as  $valor) : ?>
-    <tr><td><input type="text" name="coches" value="<?=$valor?>"></td></tr>
+    <tr><td><input type="text" name="coches[]" value="<?=$valor?>"></td></tr>
     <?php endforeach ?>
-    </table>
+    </table>    
     <?php endif ?>
+    
+    <p><input type='submit' value='Actualizar'  name='actualizar'> </p>
+   
+    </form>
 
-    <?php if (isset($_POST["enviar"]) && $_POST['coches']) : ?> 
-    <table border="2">
-    <thead>Coche</thead>
-    <?php foreach ($arraycoches[$_POST['marca']] as  $valor) : ?> 
-        <?php if ($valor != $_POST['coches'] ) : ?>
-        <p>Se a actualizado el modelo <?= $_POST['coches'] ?></p>
-     <?php endif ?>
-    <?php endforeach ?>
+    <?php if (isset($_POST['actualizar'])) {
+   $cochesactual=$_POST['coches'];
+ 
+       $i=0;     
+       foreach ($arraycoches[$_POST['marca2']] as  $valor){
+          
+           if ($valor!=$cochesactual[$i]) {
+              echo "<p>Se a actualizado el coche $valor a $cochesactual[$i]</p><br>";
+              $i++;
+           }
+       }
 
-    </table>
-    <?php endif ?>
+    }    
+    
+    ?>
+  
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
