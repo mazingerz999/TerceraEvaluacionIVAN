@@ -2,7 +2,6 @@
 require_once('funciones.php');
 
 ?>
-
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -38,8 +37,8 @@ require_once('funciones.php');
                 <tr>
                     <th>Nombre</th>
                     <th>Peso</th>
-                    <th>Codigo</th>
                     <th>Equipo</th>
+                    <th>Codigo</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,8 +109,6 @@ require_once('funciones.php');
         if (setTraspaso($_POST['jugador'], $_POST['Nombre'], $_POST['Procedencia'], $_POST['Altura'], $_POST['Peso'], $_POST['Posicion'], $_POST['equipohidden']) ) {
             
             echo $_POST["jugador"]. " fue traspasado correctamente";
-        }else{
-            echo "No Se realizo el traspaso con exito";
         }
     };
     ?>

@@ -70,8 +70,10 @@ function setTraspaso($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posic
     $borrado->bind_param('s', $jugadorBaja);
     if ($borrado->execute() != true) {
         $todoOk = false;
+       
     }
-    $update = $conexion->prepare('INSERT INTO jugadores (codigo, nombre, procedencia, altura, peso, posicion, nombre_equipo) VALUES ((SELECT (t.codigo + 1) from jugadores AS t ORDER BY t.codigo DESC LIMIT 1),?,?,?,?,?,?)');
+    $update = $conexion->prepare('INSERT INTO jugadores (codigo, nombre, procedencia, altura, peso, posicion, nombre_equipo)
+     VALUES ((SELECT (t.codigo + 1) from jugadores AS t ORDER BY t.codigo DESC LIMIT 1),?,?,?,?,?,?)');
     $update->bind_param('ssddss', $nombre, $procedencia, $altura, $peso, $posicion, $equipo);
     if ($update->execute() != true) {
         $todoOk = false;
@@ -84,6 +86,8 @@ function setTraspaso($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posic
         return false;
     }
 }
+
+
 function getPosicion()
 {
     $conexion = getConexionSQLi();
