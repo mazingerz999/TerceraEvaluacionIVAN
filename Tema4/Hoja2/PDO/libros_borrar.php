@@ -10,31 +10,34 @@
         integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 </head>
 <body class="jumbotron">
+<h1>Borrar Libros</h1>
+    <HR></HR>
 
-    <table border='1'>
-    <thead  class="table-primary">
-        <tr>
-              <th>Numero de ejemplar</th>
-               <th>Titulo</th>
-               <th>Año de edicion</th>
-               <th>Precio</th>
-               <th>Fecha de edicion</th>
-          </tr>
-     </thead> 
-      <tbody>
-      <?php foreach (getLibros() as  $value) : ?>
-          <tr>
-          
-              <td><?=$value['Numero']?></td>
-              <td><?=$value['Titulo']?></td>
-              <td><?=$value['Anio']?></td>
-              <td><?=$value['Precio']?></td>
-              <td><?=$value['Fecha']?></td>
-         
-          </tr>
-          <?php endforeach ?>
-      </tbody> 
-      </table>
+    <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+    <p> <label for='libro'>Seleccione un libro:  </label>
+    <select name="libro" id="libro">
+    <?php foreach (getLibros() as $key => $value) : ?>
+    <option value="<?=$value['Numero']?>"><?=$value['Titulo']?></option>
+    <?php endforeach ?>
+    </select></p>
+    <hr>
+    <p><input type='submit' value='Eliminar Libro' id='enviar' name='enviar'> </p>
+    </form>
+
+<?php if (isset($_POST['enviar'])) { 
+
+    if (delete_Libros($_POST['libro'])) {
+        echo "Se elimino  el  libro correctamente";
+        echo "<br>";
+    }else{
+        echo "Hubo un error";
+        echo "<br>";
+    }
+ 
+
+ };  ?>
+    <a href="libros_datos.php">Volver</a>
+
 
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'

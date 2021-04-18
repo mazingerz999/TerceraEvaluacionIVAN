@@ -1,4 +1,7 @@
-<?php require_once( 'funciones.php' ); ?>
+<?php require_once( 'funciones.php' );
+
+
+?>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -9,33 +12,26 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 </head>
-<body class="jumbotron">
+<body>
+  <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+  <?php foreach (getDinero() as  $value) :  ?>
+    <p> <label for='plaza'>Plaza: <?=$value['numero']?>:  </label> <input type='number' name='plaza' id='plaza' value="<?=$value['precio']?>">€</p>
+    <input type="hidden" name="numero[]" id="numero[]" value="<?=$value["numero"]?>">
+    <?php endforeach ?>
 
-    <table border='1'>
-    <thead  class="table-primary">
-        <tr>
-              <th>Numero de ejemplar</th>
-               <th>Titulo</th>
-               <th>Año de edicion</th>
-               <th>Precio</th>
-               <th>Fecha de edicion</th>
-          </tr>
-     </thead> 
-      <tbody>
-      <?php foreach (getLibros() as  $value) : ?>
-          <tr>
-          
-              <td><?=$value['Numero']?></td>
-              <td><?=$value['Titulo']?></td>
-              <td><?=$value['Anio']?></td>
-              <td><?=$value['Precio']?></td>
-              <td><?=$value['Fecha']?></td>
-         
-          </tr>
-          <?php endforeach ?>
-      </tbody> 
-      </table>
+    <p><input type='submit' value='Actualizar' id='enviar' name='enviar'> </p>
+  </form>
 
+<?php if (isset($_POST['enviar'])) { 
+
+$plaza=$_POST['plaza'];
+$numero=$_POST['numero'];
+
+for ($i = 0; $i < count($numero); $i++) {
+    updatePrecio($plaza[$i],$numero[$i]); 
+ }
+
+ };  ?>
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'

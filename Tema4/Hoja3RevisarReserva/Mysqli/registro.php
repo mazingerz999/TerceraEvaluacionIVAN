@@ -1,4 +1,9 @@
-<?php require_once( 'funciones.php' ); ?>
+<?php
+
+require_once( 'funciones.php' ); 
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -9,33 +14,22 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 </head>
-<body class="jumbotron">
+<body>
+<h1>Registro de usuario</h1>
+<form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+    <p> <label for='user'>Usuario:  </label> <input type='text' name='user' id='user'></p>
+    <p> <label for='password'>Password:  </label> <input type='text' name='password' id='password'></p>
+    <p><input type='submit' value='Enviar' id='enviar' name='enviar'> </p>
+    </form>
+<?php if (isset($_POST['enviar'])) { 
 
-    <table border='1'>
-    <thead  class="table-primary">
-        <tr>
-              <th>Numero de ejemplar</th>
-               <th>Titulo</th>
-               <th>Año de edicion</th>
-               <th>Precio</th>
-               <th>Fecha de edicion</th>
-          </tr>
-     </thead> 
-      <tbody>
-      <?php foreach (getLibros() as  $value) : ?>
-          <tr>
-          
-              <td><?=$value['Numero']?></td>
-              <td><?=$value['Titulo']?></td>
-              <td><?=$value['Anio']?></td>
-              <td><?=$value['Precio']?></td>
-              <td><?=$value['Fecha']?></td>
-         
-          </tr>
-          <?php endforeach ?>
-      </tbody> 
-      </table>
-
+if (insertUser($_POST['user'],$_POST['password'])) {
+   echo "Se registro el usuario " .$_POST['user'];
+}else{
+   echo "Hubo un error"; 
+}
+  
+ }; ?>
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'

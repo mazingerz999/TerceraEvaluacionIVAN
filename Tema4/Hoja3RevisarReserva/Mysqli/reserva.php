@@ -1,7 +1,13 @@
-<?php 
+<?php
 
-require_once('funciones.php');
+require_once( 'funciones.php' );
+session_start();
 
+var_dump($_SESSION['credenciales']);
+
+session_unset();
+
+var_dump($_SESSION['credenciales']);
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -13,21 +19,33 @@ require_once('funciones.php');
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 </head>
-<body  class="jumbotron">
-    <h1>INSERTE LOS DATOS DEL LIBRO</h1>
-    <HR></HR>
-
-    <form action="libros_guardar.php" method="post">
+<body>
+    <h1>Reserva de asiento </h1>
+    <hr>
+    <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
     <p> <label for='nombre'>Nombre:  </label> <input type='text' name='nombre' id='nombre'></p>
-    <p> <label for='anyo'>Año de edicion:  </label> <input type='number' name='anyo' id='anyo'></p>
-    <p> <label for='precio'>Precio:  </label> <input type='number' name='precio' id='precio'></p>
-    <p> <label for='fecha'>Fecha de adquisicion:  </label> <input type='date' name='fecha' id='fecha'></p>
-    <p><input type='submit' value='Guardar datos de libro' id='enviar' name='enviar'> </p>
+    <p> <label for='dni'>DNI:  </label> <input type='text' name='dni' id='dni'></p>
+    <p> <label for='asiento'>Asiento:  </label>
+    <select name="asiento" id="asiento">
+    <?php foreach (getAsiento() as  $value) : ?>
+        <option value="<?=$value['numero']?>"><?=$value['numero']?> (<?=$value['precio']?>€)</option>
+    <?php endforeach ?>  
+    </select>
+    </p>
+    <p><input type='submit' value='Reservar' id='enviar' name='enviar'> </p>
     </form>
     <hr>
-    <a href="libros_datos.php">Mostrar los libros guardados</a>
+
+    <?php if (isset($_POST['enviar'])) { 
 
 
+      if (TransaccionReservara($_POST['nombre'],$_POST['dni'],$_POST['asiento'])) {
+          echo "Se  realizo la reserva Nº {$_POST['asiento']}";
+      }else {
+          echo "No se pudo realilzar";
+      }
+    
+     };  ?>
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
