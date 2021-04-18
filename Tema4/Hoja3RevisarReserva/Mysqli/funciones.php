@@ -124,6 +124,22 @@ function compruebaUser($usuario, $password)
     $conexion->close();
     return $aux;
 }
+function compruebaTodos()
+{
+    $conexion = getConexionSQLi();
+    $consulta = "SELECT *  FROM usuarios";
+    if ($resultado = $conexion->query($consulta)) {
+        while ($row = $resultado->fetch_array()) {
+            $aux[] = array(
+                'usuario' => $row['usuario'],
+                'password' => $row['password']
+
+            );
+        }
+    }
+    $conexion->close();
+    return $aux;
+}
 function insertUser($user, $pass) {
 $conexion= getConexionSQLi();
 $todoOK=true;

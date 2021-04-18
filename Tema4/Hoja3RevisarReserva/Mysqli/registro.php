@@ -16,7 +16,7 @@ session_start();
 </head>
 <body>
 <h1>Registro de usuario</h1>
-<form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+<form action="index.php" method="post">
     <p> <label for='user'>Usuario:  </label> <input type='text' name='user' id='user'></p>
     <p> <label for='password'>Password:  </label> <input type='text' name='password' id='password'></p>
     <p><input type='submit' value='Enviar' id='enviar' name='enviar'> </p>
@@ -30,6 +30,7 @@ if (insertUser($_POST['user'],$_POST['password'])) {
 }
   
  }; ?>
+
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
