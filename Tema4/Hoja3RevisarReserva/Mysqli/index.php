@@ -35,10 +35,22 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     <h1>Gestion del funicular</h1>
     <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
     <p> <label for='user'>Usuario:  </label> <input type='text' name='user' id='user'></p>
-    <p> <label for='password'>Password:  </label> <input type='text' name='password' id='password'></p>
+    <p> <label for='password'>Password:  </label> <input type='password' name='password' id='password'></p>
     <p><input type='submit' value='Enviar' id='enviar' name='enviar'> </p>
     </form>
+<?php if (isset($_POST['enviar'])){
 
+ foreach (compruebaTodos() as  $value) {
+        if ($value['usuario']==$_POST['user'] ) {
+            if ($value['password']==$_POST['password']) {
+                echo "al";
+            }
+        }
+    }
+
+
+ }
+?>
     <p>Elige una opcion</p>
     <ul>
     <li><a href="reserva.php">Realizar una reserva</a></li>
