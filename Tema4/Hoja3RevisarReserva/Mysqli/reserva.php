@@ -3,11 +3,9 @@
 require_once( 'funciones.php' );
 session_start();
 
-var_dump($_SESSION['credenciales']);
+echo "<h3>Bienvenido  {$_SESSION['usuario']} </h3>";
 
-session_unset();
 
-var_dump($_SESSION['credenciales']);
 ?>
 <!DOCTYPE html>
 <html lang='en'>

@@ -1,12 +1,5 @@
 <?php require_once( 'funciones.php' ); 
 session_start();
-// if (isset($_POST['enviar'])) { 
-    
-//     $crecenciales=compruebaUser($_POST['user'],$_POST['password']);
-//     $_SESSION['credenciales']=$crecenciales;
-
-
-//      };
 
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic Realm="Contenido restringido"');
@@ -42,14 +35,15 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
  foreach (compruebaTodos() as  $value) {
         if ($value['usuario']==$_POST['user'] ) {
-            if ($value['password']==$_POST['password']) {
-                echo "al";
-            }
+            $_SESSION['usuario']=$value['usuario'];
+            // if ($value['password']==$_POST['password']) {
+               
+            // }
         }
     }
 
-
  }
+
 ?>
     <p>Elige una opcion</p>
     <ul>
