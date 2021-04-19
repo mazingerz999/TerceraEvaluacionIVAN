@@ -1,18 +1,8 @@
-<?php require_once( 'funciones.php' ); 
+<?php
+
+require_once( 'funciones.php' ); 
 session_start();
 
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic Realm="Contenido restringido"');
-    header('HTTP/1.0 401 Unauthorized');
-    exit();
-} else {
-    if (!compruebaUser($_SERVER["PHP_AUTH_USER"], $_SERVER["PHP_AUTH_PW"])) {
-        header('WWW-Authenticate: Basic Realm="Contenido restringido"');
-        header('HTTP/1.0 401 Unauthorized');
-        exit();
-
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -25,25 +15,22 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
         integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 </head>
 <body>
-    <h1>Gestion del funicular</h1>
-    <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-    <p> <label for='user'>Usuario:  </label> <input type='text' name='usuario' id='usuario'></p>
-    <p> <label for='password'>Password:  </label> <input type='password' name='password' id='password'></p>
+<h1>Registro de usuario</h1>
+<form action="index.php" method="post">
+    <p> <label for='user'>Usuario:  </label> <input type='text' name='user' id='user'></p>
+    <p> <label for='password'>Password:  </label> <input type='text' name='password' id='password'></p>
     <p><input type='submit' value='Enviar' id='enviar' name='enviar'> </p>
     </form>
-<?php if (isset($_POST['enviar'])){
+<?php if (isset($_POST['enviar'])) { 
 
-$_SESSION['usuario']=compruebaUser($_POST['usuario'], $_POST['password']);
-//$_SESSION['usuario']['usuario'] viene de la query auxiliar de la funcion 
- }
+if (insertUser($_POST['user'],$_POST['password'])) {
+   echo "Se registro el usuario " .$_POST['user'];
+}else{
+   echo "Hubo un error"; 
+}
+  
+ }; ?>
 
-?>
-    <p>Elige una opcion</p>
-    <ul>
-    <li><a href="reserva.php">Realizar una reserva</a></li>
-    <li><a href="llegada.php">Llegada</a></li>
-    <li><a href="registro.php">Registro</a></li>
-    </ul>
 </body>
 <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
     integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'

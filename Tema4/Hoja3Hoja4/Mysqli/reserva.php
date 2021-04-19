@@ -1,7 +1,9 @@
 <?php
 
 require_once( 'funciones.php' );
+session_start();
 
+echo "<h3>Bienvenido  {$_SESSION['usuario']['usuario']} </h3>";
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +25,12 @@ require_once( 'funciones.php' );
     <p> <label for='asiento'>Asiento:  </label>
     <select name="asiento" id="asiento">
     <?php foreach (getAsiento() as  $value) : ?>
-        <option value="<?=$value['numero']?>"><?=$value['numero']?> (<?=$value['precio']?>€)</option>
+        <option value="<?=$value['numero']?>" <?php 
+        if (isset($_POST['asiento']) && $value['numero']== $_POST['asiento']) {      
+        echo " selected='true'";  
+        // echo " checked='true'";  
+         }; ?>>
+        <?=$value['numero']?> (<?=$value['precio']?>€)</option>
     <?php endforeach ?>  
     </select>
     </p>
